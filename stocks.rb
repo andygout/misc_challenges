@@ -1,13 +1,14 @@
 def buysell(stocks)
-  newhash = {}; viewed = []
+  maxdiff = {}; viewed = []
   stocks.each do |k, v|
     diff = stocks.reject{|k1,_| viewed.include? k1}.map {|a, b| [v, b - v, a, b]}.max
-    newhash[k] = diff
+    maxdiff[k] = diff
     viewed << k
   end
-  p newhash.max_by{|k, v| v[1]}[0] => newhash.max_by{|k, v| v[1]}[1][0], newhash.max_by{|k, v| v[1]}[1][2] => newhash.max_by{|k, v| v[1]}[1][3]
+  result = maxdiff.max_by{|k, v| v[1]}
+  p result[0] => result[1][0], result[1][2] => result[1][3]
 end
 
 buysell({:day1 => 3, :day2 => 5, :day3 => 1, :day4 => 8, :day5 => 6, :day6 => 5, :day7 => 2, :day8 => 9}) # => {:day3=>1, :day8=>9}
 
-# If stock is on a constant downward trend then only one day will display (i.e. buy and sell on same day while stock remains at same price) as it impossible to make a profit in such circumstances.
+# If stock is on a constant downward trend then only one date will display (i.e. buy and sell on same day while it remains same price) as it impossible to make a profit in such circumstances.
